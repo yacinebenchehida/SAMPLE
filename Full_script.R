@@ -1,3 +1,7 @@
+
+# Usage: Full_script("Example_file.txt","Example",10,2,5,1)
+
+
 Full_script <- function(input,output_N,replicates,stability_thres,sucess_points,diff){
 ###############
 # Upload data #
