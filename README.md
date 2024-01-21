@@ -1,3 +1,3 @@
 # SAMPLE
 
-This is the description of the usage of the SampleR package
+This is the description of the usage of the R package SAMPLE
