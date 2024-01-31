@@ -192,7 +192,7 @@ info[is.na(info$thres),5] = "na" # If the system not stable in the end put "na"
 info[info$missing=="2beadded",5] = NA # If it reached stability put NA. So it is not plotted. 
 
 #####################
-# Define color skim #
+# Define colour scheme #
 #####################
 n <- length(unique(data$Taxa)) # Count the number of total parasites/symbionts 
 list = list()
@@ -206,12 +206,12 @@ for (i in unique(info$Host_sp)){
   }
 maximum_species = max(do.call(c,list)) 
 
-#if(maximum_species < 3){ # If it smaller than 6 is you color code below
+#if(maximum_species < 3){ # If it smaller than 6 is you colour code below
 #  couleur = viridis(begin = 0, end = .75, n)
 #}else if((maximum_species > 2) && (maximum_species < 7)){
 #couleur = c(viridis(begin = 0, end = .75, n-1),"#ff8c00")
 # print(couleur)
-#}else{ # If it large use a random color code assigned by the brewer palette
+#}else{ # If it large use a random colour code assigned by the brewer palette
   #  print("Warning: Too many host species the plot is going to be very cluttered and hard to read")
   #  qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
   #col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
@@ -220,7 +220,7 @@ maximum_species = max(do.call(c,list))
 
 if(maximum_species < 8){ 
   couleur = c("#7B3014","#D04A07","#F98C40","black","#5AA5CD","#236CA7","#26456E")
-  }else{ # If it large use a random color code assigned by the brewer palette
+  }else{ # If it large use a random colour code assigned by the brewer palette
     print("Warning: Too many host species the plot is going to be very cluttered and hard to read")
     qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
     col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
@@ -231,7 +231,7 @@ if(maximum_species < 8){
 # Start plotting  #
 ###################
 # The plotting works by adding one taxa (parasites/symbionts) at a time as a new layer.  
-count = 1 # Counter that will by incremented for each taxa. This counter is used to choice the colors and figure out the spatial coordinate of the geom_text for the stability threshold.
+count = 1 # Counter that will by incremented for each taxa. This counter is used to choice the colours and figure out the spatial coordinate of the geom_text for the stability threshold.
 data$Taxa = gsub(pattern = "[_-]", replacement = " ", x=data$Taxa, perl = TRUE)
 data$Host_sp = gsub(pattern = "[_-]", replacement = " ", x=data$Host_sp, perl = TRUE)
 info$type_species = gsub(pattern = "[_-]", replacement = " ", x=info$type_species, perl = TRUE)
@@ -281,7 +281,7 @@ suppressMessages(for (taxonomy_names in sort(unique(data$Taxa))){ # Counter that
 })
 
 ###################
-# PLotting per se #
+# Plotting #
 ###################
 nb_sp = length(unique(data$Host_sp)) # Check the number of species. Import to know how large the pdf plot has to be.
 
