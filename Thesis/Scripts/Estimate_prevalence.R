@@ -1,5 +1,3 @@
-#print("Usage: Rscript ./prevalence_script.R input output_name replicates mean_difference successive_points max_min_difference")
-
 ###################################
 # Need library + block R messages #
 ###################################
@@ -14,10 +12,7 @@ library(dplyr,quietly = TRUE)
 ###############
 # Upload data #
 ###############
-#args = commandArgs(trailingOnly=TRUE) # To supply argument in command lines to the program
-#data = read.table(args[1], header = T, sep = "\t", fill=TRUE) # Read input data file
-##data = read.table("figure_data_set.txt", header = T, sep = "\t", fill=TRUE)
-data = read.csv("Coral_data.csv", fileEncoding="UTF-8-BOM") #Import data file
+data = read.csv("S3_data_set.csv", fileEncoding="UTF-8-BOM") #Import data file
 colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
 # Replace missing data by 0
@@ -37,32 +32,27 @@ if (max(unlist(data[,-c(1)])) > 1){
 # Set output name defined by the user #
 #######################################
 output_name = as.character("results_file")
-#output_name = as.character(args[2])
 
 
 #######################################
 # Set the number of replicates to use. Default = 50 #
 #######################################
 repli = as.numeric(50)
-#repli = args[3] # Set the number of replicates to perform
 
 #############################################################
 # Set threshold from which to consider the system is stable. Default = 2 #
 #############################################################
 stability = as.numeric(2)/sqrt(as.numeric(repli))
-#stability = as.numeric(args[4])/sqrt(as.numeric(repli))
 
 ###################################
 # Set number of successive points. Default = 10 #
 ###################################
 successive_points = as.numeric(10)
-#successive_points = as.numeric(args[5])
 
 #######################################
 # Set difference between mean and max. Default = 1 #
 #######################################
 minmax = as.numeric(1)
-#minmax = as.numeric(args[6])
 
 ########################
 # Print settings used #
