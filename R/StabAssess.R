@@ -1,0 +1,105 @@
+#' Usage: StabAssess(df,2,10,1)
+
+StabAssess <- function(data,stability_thres,sucess_points,diff){
+
+  #######################################
+  # Set the number of replicates to use #
+  #######################################
+  repli = max(as.numeric(data$replicates)) # Set the number of replicates to perform
+
+  #############################################################
+  # Set threshold from which to consider the system is stable #
+  #############################################################
+  stability = as.numeric(stability_thres)/sqrt(as.numeric(repli))
+
+  ###################################
+  # Set number of successive points #
+  ###################################
+  successive_points = sucess_points
+
+  #######################################
+  # Set difference between mean and max #
+  #######################################
+  minmax = diff
+
+  ########################
+  # Print settings used #
+  ########################
+  cat("\n")
+  cat("Running with the following settings:\n")
+
+  cat(paste("Mean difference tolerated/√(Number of replicates): ",stability,sep=""),"\n")
+  cat(paste("Number of successive points: ",successive_points,sep=""),"\n")
+  cat(paste("Difference between min and max tolerated: ",minmax,sep=""),"\n")
+  cat("\n")
+
+  #####################################
+  # Determine threshold of stability  #
+  #####################################
+  #list = list() # Create an empty list for threshold based on confidence interval
+  list_mean_diff = list() # Create an empty list threshold based on a mean diff between points
+  list_stable = list()
+  counter = 1 # Initialize a counter what will be used to append every new element to the list above
+  counter_sp = 1 # Initialize a counter what will be used to append every new element to the list above
+  options(warn = -1) # Prevent R to print messages and warnings not defined by this script
+  meanci_previous = 0
+  counter_mean_diff_low = 0
+  Stability_assessement = FALSE
+  suppressMessages(for (sp in unique(data$Host_sp)){ # For loops over each host species sp
+    for (taxa in unique(data$Taxa)){ # Loop over each taxa (parasites or symbionts)
+      Host_sp = data[data$Host_sp==sp & data$Taxa==taxa & data$colonies > 0,] # Create a data frame with the host species analysed in the loop
+      Host_sp$colonies = as.numeric(Host_sp$colonies)
+      Host_sp$replicates = as.numeric(Host_sp$replicates)
+      tot_samples = length(unique(Host_sp$colonies)) # determine the number of host species individuals
+      for (size in 1:(tot_samples)){ # Increase  sample size from 2 individuals to the total number of individuals
+        occ_rate = Host_sp[Host_sp$colonies==size,1] # Extract data for the current sample size
+        meanci = mean(occ_rate)  # Get the mean value of the prevalence at the current sample size
+        mean_diff = abs(meanci - meanci_previous)
+        meanci_previous = meanci #  Store previous mean in a different object
+        if((mean_diff != "NaN") && (mean_diff < stability)){ #  If the difference of means is smaller than the stability threshold
+          counter_mean_diff_low = counter_mean_diff_low + 1 # Increment the counter of mean differences below stability by 1
+          list_stable[[counter_mean_diff_low]] = c(size,meanci)
+        }
+        else{
+          counter_mean_diff_low = 0
+        }
+        if(counter_mean_diff_low==successive_points){
+          stable_points = as.data.frame(do.call(rbind, list_stable))
+          stable_point = stable_points[1,1]
+          differential = max(stable_points$V2) - min(stable_points$V2)
+          if(differential < minmax){
+            print(paste("reached stability at ",stable_point," for ", sp," ", taxa, sep=""))
+            list_mean_diff[[counter_sp]] = c(sp,stable_point,meanci,taxa)
+            counter_sp = counter_sp + 1
+            Stability_assessement = TRUE
+            break
+          }
+          else{
+            counter_mean_diff_low = counter_mean_diff_low - 1
+            list_stable = list_stable[-1]
+          }
+        }
+        if((size==tot_samples-1) && (counter_mean_diff_low < successive_points)){
+          print(paste("Did not reach stability for ",sp," ", taxa,sep=""))
+          list_mean_diff[[counter_sp]] = cbind(sp,"NA",NA,taxa) # Add NA to the list
+          counter_sp = counter_sp + 1
+        }
+        if((size==tot_samples-1) && (Stability_assessement == FALSE) && (counter_mean_diff_low ==successive_points)){
+          print(paste("Did not reach stability for ",sp," ", taxa," ", differential, " ", 1.5 * stability,sep=""))
+          list_mean_diff[[counter_sp]] = cbind(sp,"NA",NA,taxa) # Add NA to the list
+          counter_sp = counter_sp + 1
+        }
+      }
+    }
+  })
+
+  info = as.data.frame(do.call(rbind,list_mean_diff)) # Transform the list with information on stability on each host species and parasites/symbionts into a single data frame.
+  colnames(info) = c("Host_sp","thres","Prevalence","type_species")
+  info$thres = as.numeric(info$thres)
+  info$Prevalence = as.numeric(info$Prevalence)
+  info$missing = "2beadded" # Create a new column stating with the stability of the system was reached or not after sampling
+  info[is.na(info$thres),5] = "na" # If the system not stable in the end put "na"
+  info[info$missing=="2beadded",5] = NA # If it reached stability put NA. So it is not plotted.
+
+  return(info)
+}
