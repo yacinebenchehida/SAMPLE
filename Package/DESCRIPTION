@@ -4,15 +4,15 @@ Title: SAMPLE R
 Version: 1.0.0
 Author: Henrique Gouveia Bravo and Yacine Ben Chehida (Sanchia?)
 Maintainer: Henrique Gouveia Bravo <henrique.bravo@rug.nl> and Yacine Ben Chehida <yacine.benchehida@york.ac.uk>
-Description: SAMPLE R package
-License: GPL (>= 3)
+Description: SAMPLE R package.
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
 Imports: 
     ggplot2 (>= 3.4.2),
     Rmisc (>= 1.5.1),
-    RColorBrewer (>= 1.1-3)
+    RColorBrewer (>= 1.1-3),
     dplyr (>= 1.1.4)
 Suggests: 
     tibble (>= 3.2.1)
