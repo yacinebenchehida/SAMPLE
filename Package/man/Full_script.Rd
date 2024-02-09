@@ -4,14 +4,21 @@
 \alias{Full_script}
 \title{Running all the steps of the SAMPLE pipeline}
 \usage{
-Full_script(input, output_N, replicates, stability_thres, sucess_points, diff)
+Full_script(
+  input,
+  output_N = "Results",
+  replicates = 50,
+  stability_thres = 2,
+  sucess_points = 10,
+  diff = 1
+)
 }
 \arguments{
 \item{input}{Input dataframe (a dataframe object)}
 
-\item{output_N}{Prefix used for the output (a character)}
+\item{output_N}{Prefix used for the output (a character; default output_N="Results")}
 
-\item{replicates}{Nnumber of permutation replicates to perform (an integer)}
+\item{replicates}{Nnumber of permutation replicates to perform (an integer; default replicates=50)}
 
 \item{stability_thres}{Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float, default stability_thres = 2.0).}
 
