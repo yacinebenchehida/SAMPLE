@@ -1,8 +1,8 @@
 #' Running all the steps of the SAMPLE pipeline
 #'
 #' @param input Input dataframe (a dataframe object)
-#' @param output_N Prefix used for the output (a character)
-#' @param replicates Nnumber of permutation replicates to perform (an integer)
+#' @param output_N Prefix used for the output (a character; default output_N="Results")
+#' @param replicates Nnumber of permutation replicates to perform (an integer; default replicates=50)
 #' @param sucess_points Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thres) used to define stability (an integer; default stability_thres = 10).
 #' @param stability_thres Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float, default stability_thres = 2.0). 
 #' @param diff Difference between the absolute minimum and maximum values among the all the means used to set the stability threshold (a float, default diff = 1.0).
@@ -15,7 +15,7 @@
 #'
 #' @export
 
-Full_script <- function(input,output_N,replicates,stability_thres,sucess_points,diff){
+Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2,sucess_points=10,diff=1){
   ###############
   # Upload data #
   ###############
