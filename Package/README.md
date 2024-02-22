@@ -35,5 +35,5 @@ library(RColorBrewer)
 
 blabla
 
-<img src="Figures/example.png" width="50%" height="50%"/>
+<img src="Figure.png" width="50%" height="50%"/>
 
