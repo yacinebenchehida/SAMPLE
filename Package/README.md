@@ -15,11 +15,6 @@ devtools::install_github("yacinebenchehida/SAMPLE/Package")
 
 SAMPLES requires: `ggplot2`, `dplyr`, `Rmisc`,`RColorBrewer`.
 
-## Functions
-
--   `rm_axis()` to remove either axis completely
--   `rm_strips()` to remove strips and labels from facets (when using `facet_wrap()` or `facet_grid()`)
-
 ## Example usage
 
 ``` r
@@ -29,7 +24,6 @@ library(Rmisc)
 library(RColorBrewer)
 
 .....
-```
 
 ## Output
 
