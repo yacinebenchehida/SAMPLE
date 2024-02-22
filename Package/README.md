@@ -5,7 +5,7 @@ A DESCRIPTION
 ## Install
 
 ``` r
-install.packages("devtools")
+library("devtools")
 devtools::install_github("yacinebenchehida/SAMPLE/Package")
 ```
 
