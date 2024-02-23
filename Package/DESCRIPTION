@@ -2,8 +2,8 @@ Package: SAMPLE
 Type: Package
 Title: SAMPLE R
 Version: 1.0.0
-Author: Henrique Gouveia Bravo and Yacine Ben Chehida (Sanchia?)
-Maintainer: Henrique Gouveia Bravo <henrique.bravo@rug.nl> and Yacine Ben Chehida <yacine.benchehida@york.ac.uk>
+Author: Henrique Bravo, Yacine Ben Chehida and Sancia E.T. van der Meij
+Maintainer: Henrique Bravo <henrique.bravo@rug.nl> and Yacine Ben Chehida <yacine.benchehida@york.ac.uk>
 Description: SAMPLE R package.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
