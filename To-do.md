@@ -12,3 +12,4 @@ To-do lists for Yacine and for Henrique
 - Download the package and adjust the help files and re-write/tweak whatever is needed; send this back to Yacine
 - Put the manuscript as preprint or not?
 - Suggest reviewers
+- Elaborate caption of Fig. 2
