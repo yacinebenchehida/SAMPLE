@@ -14,4 +14,5 @@ To-do lists for Yacine and for Henrique
 - Put the manuscript as preprint or not?
 - Suggest reviewers
 - Elaborate caption of Fig. 2
+- ~~Add extension of Fig. 2~~
 - Go through the manuscript
