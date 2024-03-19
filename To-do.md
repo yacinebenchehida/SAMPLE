@@ -8,8 +8,10 @@ To-do lists for Yacine and for Henrique
 - Add examples on how to run the functions at the end of every function
 
 ## Henrique
-- Send the Example file to Yacine
-- Download the package and adjust the help files and re-write/tweak whatever is needed; send this back to Yacine
+- ~~Send the Example file to Yacine~~
+- ~~Download the package~~
+- Adjust the help files and re-write/tweak whatever is needed; send this back to Yacine
 - Put the manuscript as preprint or not?
 - Suggest reviewers
 - Elaborate caption of Fig. 2
+- Go through the manuscript
