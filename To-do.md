@@ -18,3 +18,4 @@ To-do lists for Yacine and for Henrique
 - ~~Add extension of Fig. 2~~
 - Go through the manuscript
 - Add code in the manuscript to load example file
+- Update manuscript to match the new figure
