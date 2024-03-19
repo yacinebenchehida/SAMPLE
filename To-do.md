@@ -11,6 +11,7 @@ To-do lists for Yacine and for Henrique
 - Make the example file already preloaded into the package
 - Add examples on how to run the functions at the end of every function
 - Update the simulation script
+- Send screenshots
 
 ## Henrique
 - ~~Send the Example file to Yacine~~
