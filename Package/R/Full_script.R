@@ -4,14 +4,14 @@
 #' @param output_N Prefix used for the output (a character; default output_N="Results")
 #' @param replicates Nnumber of permutation replicates to perform (an integer; default replicates=50)
 #' @param sucess_points Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thres) used to define stability (an integer; default stability_thres = 10).
-#' @param stability_thres Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float, default stability_thres = 2.0). 
+#' @param stability_thres Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float, default stability_thres = 2.0).
 #' @param diff Difference between the absolute minimum and maximum values among the all the means used to set the stability threshold (a float, default diff = 1.0).
 #' @return A textfile and a pdf.
 #'
 #' @examples
 #'
-#' data <- read.table("Example_file.txt")
-#' Full_script(input = data,output_N = "Example",output_N = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
+#' example_file_path <- system.file("examples","examples.txt",package = "SAMPLE")
+#' Full_script(input = example_file_path,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
 #'
 #' @export
 
