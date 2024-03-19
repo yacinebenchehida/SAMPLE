@@ -6,6 +6,7 @@ To-do lists for Yacine and for Henrique
 - Re-do the figure
 - Make the example file available to users
 - Add examples on how to run the functions at the end of every function
+- Update the simulation script
 
 ## Henrique
 - ~~Send the Example file to Yacine~~
