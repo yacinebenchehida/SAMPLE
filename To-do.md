@@ -1,6 +1,9 @@
 # What is left to do?
 To-do lists for Yacine and for Henrique
 
+# Tentative submission date
+10th of April 2024
+
 ## Yacine
 - ~~Set the seed for the example~~
 - Add the seed (812) to the example
