@@ -20,9 +20,12 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   ###############
   if(class(input) == "data.frame"){
     print("input is a data frame")
+    df_name = deparse(substitute(input))
     input[is.na(input)] <- 0
     data <- input
-    to_print <- print(deparse(substitute(input)))
+    df.name <- deparse(substitute(data))
+    print(df_name)
+    colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
     # Replace data larger than 1 to 1
     if (max(unlist(data[,-c(1)])) > 1){
       print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
@@ -32,9 +35,10 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
       data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
     }
   } else{
+    print("input is a not data frame")
     data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
+    df_name = input
     colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
-    to_print <- input
 
     # Replace missing data by 0
     data[is.na(data)] <- 0
@@ -81,7 +85,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   cat("\n")
   cat("Running with the following settings:\n")
 
-  cat(paste("Input file name: ",to_print,sep=""),"\n")
+  cat(paste("Input name: ",df_name,sep=""),"\n")
   cat(paste("Output prefix: ",output_name,sep=""),"\n")
   cat(paste("Number of replicates: ",repli,sep=""),"\n")
   cat(paste("Mean difference tolerated/√(Number of replicates): ",stability,sep=""),"\n")
