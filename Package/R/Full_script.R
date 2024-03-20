@@ -1,8 +1,8 @@
-# Import magrittr package
-library(magrittr)
-
 #' Running all the steps of the SAMPLE pipeline
 #'
+#' @importFrom magrittr %>%
+#' @importFrom dplyr if_else
+#' @import ggplot2
 #' @param input Input dataframe (a dataframe object)
 #' @param output_N Prefix used for the output (a character; default output_N="Results")
 #' @param replicates Nnumber of permutation replicates to perform (an integer; default replicates=50)
@@ -13,6 +13,7 @@ library(magrittr)
 #'
 #' @examples
 #' data("coral_symbionts")
+#' set.seed(812)
 #' Full_script(input = coral_symbionts,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
 
 #' @export
@@ -273,7 +274,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
 
       p = ggplot2::ggplot(plot_data, ggplot2::aes(x=colonies, y=avg,color=Taxa)) + ggplot2::geom_point(size=0.5) + ggplot2::scale_color_manual(values = couleur)
       p = p +  ggplot2::theme_bw() + ggplot2::facet_wrap(Host_sp~., scales = "free",  ncol = 3) +  ggplot2::xlab("Number of samples") + ggplot2::ylab("Prevalence (%)")
-      p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1"),strip.text.x = element_text(size = 14,face = "bold.italic"),legend.text=element_text(size=15),legend.title=element_text(size=16),axis.title=element_text(size=15),axis.text = element_text(size = 15))
+      p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1"),strip.text.x = ggplot2::element_text(size = 14,face = "bold.italic"),legend.text=ggplot2::element_text(size=15),legend.title=ggplot2::element_text(size=16),axis.title=ggplot2::element_text(size=15),axis.text = ggplot2::element_text(size = 15))
       p = p + ggplot2::geom_ribbon(data=plot_data,aes(ymin=lci,ymax=uci),fill="grey", color="grey",alpha =0.5)
       p = p + ggplot2::geom_vline(data  = info[info$type_species==taxonomy_names,], aes(xintercept = thres),color = couleur[count] , linetype="dotted")
       p = p + ggplot2::geom_text(y = Inf, aes(x = Inf, label = ifelse(thres < 100, gsub(pattern = "(.+)", " \\1 ", thres), thres)),data = info[info$type_species==taxonomy_names,], color = couleur[count],hjust =1.2, vjust = 2,size = 4.5)
