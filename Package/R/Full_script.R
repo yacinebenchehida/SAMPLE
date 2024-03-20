@@ -9,10 +9,9 @@
 #' @return A textfile and a pdf.
 #'
 #' @examples
-#'
-#' example_file_path <- system.file("examples","examples.txt",package = "SAMPLE")
-#' Full_script(input = example_file_path,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
-#'
+#' data("coral_symbionts")
+#' Full_script(input = coral_symbionts,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
+
 #' @export
 
 Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2,sucess_points=10,diff=1){
@@ -20,7 +19,9 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   # Upload data #
   ###############
   if(class(input) == "data.frame"){
-    data <- input[is.na(input)] <- 0
+    print("input is a data frame")
+    input[is.na(input)] <- 0
+    data <- input
     # Replace data larger than 1 to 1
     if (max(unlist(data[,-c(1)])) > 1){
       print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
@@ -30,19 +31,19 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
       data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
     }
   } else{
-  data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
-  colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
+    data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
+    colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
-  # Replace missing data by 0
-  data[is.na(data)] <- 0
+    # Replace missing data by 0
+    data[is.na(data)] <- 0
 
-  # Replace data larger than 1 to 1
-  if (max(unlist(data[,-c(1)])) > 1){
-    print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
-    replace_larger_1 <- function(x){
-      if_else(x > 1,1,x)
-    }
-    data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
+    # Replace data larger than 1 to 1
+    if (max(unlist(data[,-c(1)])) > 1){
+      print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
+      replace_larger_1 <- function(x){
+        if_else(x > 1,1,x)
+      }
+      data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
     }
   }
 
