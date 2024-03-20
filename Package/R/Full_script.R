@@ -22,6 +22,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
     print("input is a data frame")
     input[is.na(input)] <- 0
     data <- input
+    to_print <- print(deparse(substitute(input)))
     # Replace data larger than 1 to 1
     if (max(unlist(data[,-c(1)])) > 1){
       print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
@@ -33,6 +34,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   } else{
     data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
     colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
+    to_print <- input
 
     # Replace missing data by 0
     data[is.na(data)] <- 0
@@ -79,7 +81,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   cat("\n")
   cat("Running with the following settings:\n")
 
-  cat(paste("Input file name: ",input,sep=""),"\n")
+  cat(paste("Input file name: ",to_print,sep=""),"\n")
   cat(paste("Output prefix: ",output_name,sep=""),"\n")
   cat(paste("Number of replicates: ",repli,sep=""),"\n")
   cat(paste("Mean difference tolerated/√(Number of replicates): ",stability,sep=""),"\n")
@@ -262,7 +264,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
       plot_data$colonies = as.numeric(plot_data$colonies)
       plot_data$Taxa = as.factor(taxonomy_names)
 
-      p = ggplot2::ggplot(plot_data, aes(x=colonies, y=avg,color=Taxa)) + geom_point(size=0.5) + ggplot2::scale_color_manual(values = couleur)
+      p = ggplot2::ggplot(plot_data, ggplot2::aes(x=colonies, y=avg,color=Taxa)) + ggplot2::geom_point(size=0.5) + ggplot2::scale_color_manual(values = couleur)
       p = p +  ggplot2::theme_bw() + ggplot2::facet_wrap(Host_sp~., scales = "free",  ncol = 3) +  ggplot2::xlab("Number of samples") + ggplot2::ylab("Prevalence (%)")
       p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1"),strip.text.x = element_text(size = 14,face = "bold.italic"),legend.text=element_text(size=15),legend.title=element_text(size=16),axis.title=element_text(size=15),axis.text = element_text(size = 15))
       p = p + ggplot2::geom_ribbon(data=plot_data,aes(ymin=lci,ymax=uci),fill="grey", color="grey",alpha =0.5)
@@ -282,7 +284,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
       plot_data$colonies = as.numeric(plot_data$colonies)
       plot_data$Taxa = as.factor(taxonomy_names)
 
-      p = p + ggplot2::geom_point(data = plot_data, aes(x=colonies, y=avg, color=Taxa) ,size=0.5) +  ggplot2::scale_color_manual(values = couleur)
+      p = p + ggplot2::geom_point(data = plot_data, ggplot2::aes(x=colonies, y=avg, color=Taxa) ,size=0.5) +  ggplot2::scale_color_manual(values = couleur)
       p = p + ggplot2::theme_bw() + ggplot2::facet_wrap(Host_sp~., scales = "free",  ncol = 3)
       p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1")) + ggplot2::theme(legend.position="bottom")
       p = p + ggplot2::theme(strip.text = element_text(face = "bold.italic",size = 14),legend.text=element_text(size=15,face="italic"),legend.title=element_text(size=16),axis.title=element_text(size=15),axis.text = element_text(size = 15))
