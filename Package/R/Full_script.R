@@ -1,3 +1,6 @@
+# Import magrittr package
+library(magrittr)
+
 #' Running all the steps of the SAMPLE pipeline
 #'
 #' @param input Input dataframe (a dataframe object)
