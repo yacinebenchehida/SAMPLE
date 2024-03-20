@@ -37,4 +37,6 @@ Running all the steps of the SAMPLE pipeline
 example_file_path <- system.file("examples","examples.txt",package = "SAMPLE")
 Full_script(input = example_file_path,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
 
+data("coral_symbionts")
+Full_script(input = coral_symbionts,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
 }
