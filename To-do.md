@@ -11,7 +11,7 @@ To-do lists for Yacine and for Henrique
 - ~~Make the example file already preloaded into the package~~
 - Add examples on how to run the functions at the end of every function
 - Update the simulation script
-- Send screenshots
+- ~~Send screenshots~~
 - ~~full_script input path to data OR a df already available.~~
 
 ## Henrique
