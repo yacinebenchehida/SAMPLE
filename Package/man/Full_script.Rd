@@ -34,5 +34,6 @@ Running all the steps of the SAMPLE pipeline
 }
 \examples{
 data("coral_symbionts")
+set.seed(812)
 Full_script(input = coral_symbionts,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
 }
