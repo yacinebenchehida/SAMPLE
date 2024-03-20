@@ -19,6 +19,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   ###############
   # Upload data #
   ###############
+  if(class(input) == "data.frame"){
   data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
   colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
@@ -32,7 +33,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
       if_else(x > 1,1,x)
     }
     data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
-
+    }
   }
 
   #######################################
