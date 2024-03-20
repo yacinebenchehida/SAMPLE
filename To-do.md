@@ -12,6 +12,7 @@ To-do lists for Yacine and for Henrique
 - Add examples on how to run the functions at the end of every function
 - Update the simulation script
 - Send screenshots
+- full_script input path to data OR a df already available.
 
 ## Henrique
 - ~~Send the Example file to Yacine~~
