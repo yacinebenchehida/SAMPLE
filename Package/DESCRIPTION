@@ -2,8 +2,8 @@ Package: SAMPLE
 Type: Package
 Title: SAMPLE R
 Version: 1.0.0
-Author: Henrique Bravo, Yacine Ben Chehida and Sancia E.T. van der Meij
-Maintainer: Henrique Bravo <henrique.bravo@rug.nl> and Yacine Ben Chehida <yacine.benchehida@york.ac.uk>
+Author: Henrique Gouveia Bravo and Yacine Ben Chehida (Sanchia?)
+Maintainer: Henrique Gouveia Bravo <henrique.bravo@rug.nl> and Yacine Ben Chehida <yacine.benchehida@york.ac.uk>
 Description: SAMPLE R package.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
@@ -13,6 +13,7 @@ Imports:
     ggplot2 (>= 3.4.2),
     Rmisc (>= 1.5.1),
     RColorBrewer (>= 1.1-3),
-    dplyr (>= 1.1.4)
+    dplyr (>= 1.1.4),
+    magrittr (>= 2.0.3)
 Suggests: 
     tibble (>= 3.2.1)
