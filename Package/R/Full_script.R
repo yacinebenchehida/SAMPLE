@@ -20,6 +20,16 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
   # Upload data #
   ###############
   if(class(input) == "data.frame"){
+    data <- input[is.na(input)] <- 0
+    # Replace data larger than 1 to 1
+    if (max(unlist(data[,-c(1)])) > 1){
+      print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
+      replace_larger_1 <- function(x){
+        if_else(x > 1,1,x)
+      }
+      data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
+    }
+  } else{
   data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
   colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
@@ -35,6 +45,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
     data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
     }
   }
+
 
   #######################################
   # Set output name defined by the user #
