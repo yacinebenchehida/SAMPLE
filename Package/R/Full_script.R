@@ -14,7 +14,7 @@
 #' @examples
 #' data("coral_symbionts")
 #' set.seed(812)
-#' Full_script(input = coral_symbionts,output_N = "Example",replicates = 10,stability_thres = 1.5,sucess_points = 20,diff = 2)
+#' Full_script(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thres = 2,sucess_points = 10,diff = 1)
 
 #' @export
 
