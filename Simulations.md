@@ -19,7 +19,7 @@ for (Pop in Pop_size){
 }
 ```
 
-The R code above generates a text file that looks like this: 
+For each population size and prevalence rates, the R code above generates a text files that look like this: 
 ```
 Host_name  Symbiont_name
 Host1      0
@@ -31,6 +31,8 @@ Host1      1
 Host1      1
 Host1      0
 Host1      0
+...
+
 ```
 
 #  II) Assess impact of prevalence rate, number of replicates, and population size
