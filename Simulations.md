@@ -138,7 +138,7 @@ done|awk -v n=3 '{a[NR]=$0}END{ x=1; while (x<=n){ for(i=x;i<=length(a);i+=n) pr
 
 #  IV) Assess consistence of the results for 10 replicates using the same sets of parameters
 ## A) Run the pipeline:
-The commands below run 10 times the pipeline the dataset generated in **I)** with a population of a 1,000 individuals and a prevalence rate of 50%. All parameters were set to default values.
+The commands below run 10 times the pipeline on the dataset generated in **I)** with a population of a 1,000 individuals and a prevalence rate of 50%. All parameters were set to default values.
 ```bash
 for i in seq 10; do
   time Rscript ../Estimate_prevalence_terminal.R Sim_data_Pop_size_1000_Preval_50.txt Results_Simu_PopSize_50_Preval_50_succ_10_meandiff_2_minmaxdiff_1_replicate_"$i" 50 2 10 1
