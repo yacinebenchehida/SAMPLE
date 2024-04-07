@@ -40,7 +40,7 @@ Host1      0
 #  II) Assess impact of prevalence rate, number of replicates, and population size
 ## A) Run prevalence script on each data set generated in I)
 
-The commands below run pipeline on each dataset generated in I while varying the number of replicates from 10 to 500. The values of the number of successive points, the mean-difference and max-mean-difference parameters were kept at their default values:
+The commands below run pipeline on each dataset generated in **I)** while varying the number of replicates from 10 to 500. The values of the number of successive points, the mean-difference and max-mean-difference parameters were kept at their default values:
 ```bash
 for i in $(ls Sim_data*txt|tac); do
   for j in 10 20 30 40 50 60 70 80 90 100 200 500; do
@@ -60,27 +60,63 @@ Host1         Symbiont_name  48.5        51
 
 ## B) Extract the results 
 
+The main results of the simulations could be visualised using the following command:
 ```bash
-for i in Results*txt; do
+(for i in Results*txt; do
   Size=$(echo $i|cut -d _ -f 4)
   Preval=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g')
   Obs_Preval=$(cat $i|awk 'NR > 1 {print $3}'|perl -pe 's/([0-9]+)(\.)(\d\d).+/$1$2$3/g')
   Stability=$(cat $i|awk 'NR > 1 {print $4}')
   echo -e Population size: $Size ind \| Simulated Prevalence: $Preval% \| Inferred Prevalence: $Obs_Preval% \| Stable from: $Stability Samples
-done
+done)|column -t
 ```
 
-## C) Gather the results (to paste in excel file):
-```bash
-for pop in 100 1000 10000; do for j in 10 20 30 40 50 60 70 80 90 100 200 500; do cd "$j"_replicates; for i in *_"$pop"_*.txt; do Samp=$(echo $i|cut -d _ -f 4|perl -pe 's/\.txt//g'); Prev=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g'); rate=$(cat $i|awk 'NR>1 {print $4}');prevalence=$(cat $i|awk 'NR>1 {print $3}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g');  echo -e $Samp"\t"$Prev"\t"$rate"|"$prevalence"%";  done|awk '{print $3}'|perl -pe 's/\n/\t/g';cd ..;  echo -e "\n"; done|perl -pe 's/^\n$//g'; done
+The results look like this:
+```
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  50.09%  |  Stable  from:  34   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  48.36%  |  Stable  from:  13   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  50.81%  |  Stable  from:  13   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  48.98%  |  Stable  from:  93   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  49%     |  Stable  from:  35   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  48.85%  |  Stable  from:  66   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  49.26%  |  Stable  from:  29   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  51.73%  |  Stable  from:  37   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  49.36%  |  Stable  from:  48   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  49.87%  |  Stable  from:  39   Samples
+Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Prevalence:  49.71%  |  Stable  from:  12   Samples
 
+```
+
+The command used to summarise the results in Supplementary Table S2 
+```bash
+(for pop in 100 1000 10000; do
+  for j in 10 20 30 40 50 60 70 80 90 100 200 500; do
+    cd "$j"_replicates
+    for i in *_"$pop"_*.txt; do
+      Samp=$(echo $i|cut -d _ -f 4|perl -pe 's/\.txt//g')
+      Prev=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g')
+      rate=$(cat $i|awk 'NR>1 {print $4}')
+      prevalence=$(cat $i|awk 'NR>1 {print $3}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g')
+      echo -e $Samp"\t"$Prev"\t"$rate"|"$prevalence"%"
+    done|awk '{print $3}'|perl -pe 's/\n/\t/g'
+    cd ..
+    echo -e "\n"
+  done|perl -pe 's/^\n$//g'
+done) |column -t
 ```
 
 #  III) Assess impact of successive points, mean-difference, max-mean-difference
 ## A) Run prevalence script 
-```{bash}
-for succ in 2 10 50; do for meandiff in 1 2 5 10; do for minmax in 0.5 1 2; do Rscript ../prevalence_script_test.R Sim_data_Pop_size_1000_Preval_50.txt Results_Simu_PopSize_100_Preval_50_succ_"$succ"_meandiff_"$meandiff"_minmaxdiff_"$minmax" 50 $meandiff  $succ $minmax; done; done; done
 
+The commands below run pipeline on each dataset generated in **I)** while varying the number successive points, the mean-difference and max-mean-difference. The number of replicates is kept to 50 (default):
+```bash
+for succ in 2 10 50; do
+  for meandiff in 1 2 5 10; do
+    for minmax in 0.5 1 2; do
+      Rscript ../Estimate_prevalence_terminal.R Sim_data_Pop_size_1000_Preval_50.txt Results_Simu_PopSize_100_Preval_50_succ_"$succ"_meandiff_"$meandiff"_minmaxdiff_"$minmax" 50 $meandiff  $succ $minmax
+    done
+  done
+done
 ```
 
 ## B) Gather the results
