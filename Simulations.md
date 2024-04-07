@@ -19,33 +19,47 @@ for (Pop in Pop_size){
 }
 ```
 
+The R code above generates a text file that looks like this: 
+```
+Host_name  Symbiont_name
+Host1      0
+Host1      0
+Host1      0
+Host1      0
+Host1      0
+Host1      1
+Host1      1
+Host1      0
+Host1      0
+```
+
 #  II) Assess impact of prevalence rate, number of replicates, and population size
-## A) Run prevalence script on each simulated data
+## A) Run prevalence script on each data set generated in I)
 ```bash
 for i in $(ls Sim_data*txt|tac); do
   for j in 10 20 30 40 50 60 70 80 90 100 200 500; do
     mkdir -p "$j"_replicates; Pop_size=$(echo $i|cut -d _ -f 5); Preval=$(echo $i|cut -d _ -f 7|perl -pe 's/\.txt//g')
     echo $i
-    time Rscript ../prevalence_script_test.R $i $j 2 Results_Simu_PopSize_"$Pop_size"_Preval_"$Preval" 10
+    time Rscript ../Estimate_prevalence_terminal.R $i $j 2 Results_Simu_PopSize_"$Pop_size"_Preval_"$Preval" 10
     mv Res* "$j"_replicates
   done
 done
 ```
 
 ## B) Extract the results 
-```{bash}
+```bash
 
-for i in Results*txt; do \
-  Size=$(echo $i|cut -d _ -f 4); 
-  Preval=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g'); \
-  Obs_Preval=$(cat $i|awk 'NR > 1 {print $3}'|perl -pe 's/([0-9]+)(\.)(\d\d).+/$1$2$3/g'); \
-  Stability=$(cat $i|awk 'NR > 1 {print $4}'); \
-  echo -e Population size: $Size ind \| Simulated Prevalence: $Preval% \| Inferred Prevalence: $Obs_Preval% \| Stable from: $Stability Samples; \
+for i in Results*txt; do
+  Size=$(echo $i|cut -d _ -f 4)
+  Preval=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g')
+  Obs_Preval=$(cat $i|awk 'NR > 1 {print $3}'|perl -pe 's/([0-9]+)(\.)(\d\d).+/$1$2$3/g')
+  Stability=$(cat $i|awk 'NR > 1 {print $4}')
+  echo -e Population size: $Size ind \| Simulated Prevalence: $Preval% \| Inferred Prevalence: $Obs_Preval% \| Stable from: $Stability Samples
 done
 ```
 
 ## C) Gather the results (to paste in excel file):
-```{bash}
+```bash
 for pop in 100 1000 10000; do for j in 10 20 30 40 50 60 70 80 90 100 200 500; do cd "$j"_replicates; for i in *_"$pop"_*.txt; do Samp=$(echo $i|cut -d _ -f 4|perl -pe 's/\.txt//g'); Prev=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g'); rate=$(cat $i|awk 'NR>1 {print $4}');prevalence=$(cat $i|awk 'NR>1 {print $3}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g');  echo -e $Samp"\t"$Prev"\t"$rate"|"$prevalence"%";  done|awk '{print $3}'|perl -pe 's/\n/\t/g';cd ..;  echo -e "\n"; done|perl -pe 's/^\n$//g'; done
 
 ```
