@@ -47,6 +47,7 @@ for i in $(ls Sim_data*txt|tac); do
   done
 done
 ```
+These commands run pipeline on each dataset generated in I while varying the number of replicates from 10 to 500. 
 
 ## B) Extract the results 
 ```bash
