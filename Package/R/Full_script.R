@@ -40,7 +40,7 @@ Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2
     }
   } else{
     print("input is a not data frame")
-    data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
+    data = read.table(input, header = T, sep = c(",","\t"), fill=TRUE) # Read input data file
     df_name = input
     colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
