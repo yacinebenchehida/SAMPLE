@@ -38,7 +38,7 @@ Host1      0
 ```
 
 #  II) Assess impact of prevalence rate, number of replicates, and population size
-## A) Run prevalence script on each data set generated in I)
+## A) Run the pipeline on each data set generated in I)
 
 The commands below run pipeline on each dataset generated in **I)** while varying the number of replicates from 10 to 500. The values of the number of successive points, the mean-difference and max-mean-difference parameters were kept at their default values:
 ```bash
@@ -87,7 +87,7 @@ Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Preval
 
 ```
 
-The command used to summarise the results in Supplementary Table S2 
+The command used to summarise the results in Supplementary Table S2 (part A)
 ```bash
 (for pop in 100 1000 10000; do
   for j in 10 20 30 40 50 60 70 80 90 100 200 500; do
@@ -106,9 +106,9 @@ done) |column -t
 ```
 
 #  III) Assess impact of successive points, mean-difference, max-mean-difference
-## A) Run prevalence script 
+## A) Run the pipeline
 
-The commands below run pipeline on each dataset generated in **I)** while varying the number successive points, the mean-difference and max-mean-difference. The number of replicates is kept to 50 (default):
+The commands below run pipeline on each dataset generated in **I)** while varying the number successive points (2, 10 and 50), the mean-difference (1, 2, 5, and 10) and max-mean-difference (0.5, 1, 2). The number of replicates is kept to 50 (default):
 ```bash
 for succ in 2 10 50; do
   for meandiff in 1 2 5 10; do
@@ -119,20 +119,34 @@ for succ in 2 10 50; do
 done
 ```
 
-## B) Gather the results
-```{bash}
-for i in $(ls *succ_2_*.txt|sort -V); do rate=$(cat $i|awk 'NR>1 {print $4}');prevalence=$(cat $i|awk 'NR>1 {print $3}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g');echo -e $rate"|"$prevalence"%" ; done|awk -v n=3 '{a[NR]=$0}END{ x=1; while (x<=n){ for(i=x;i<=length(a);i+=n) printf "%s",a[i]"\t"; print ""; x++; } }' |column -t
+For each set of parameters, the pipeline returns a two lines text file (and a pdf) with the results. The text file looks like this:
+```
+Host_species	Taxa	Prevalence	thres_stability
+Host1	Symbiont_name	51.1428571428571	13
+```
 
+## B) Gather the results
+
+The command used to summarise the results in Supplementary Table S2 (part B):
+```bash
+for i in $(ls *succ_2_*.txt|sort -V); do
+  rate=$(cat $i|awk 'NR>1 {print $4}')
+  prevalence=$(cat $i|awk 'NR>1 {print $3}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g')
+  echo -e $rate"|"$prevalence"%"
+done|awk -v n=3 '{a[NR]=$0}END{ x=1; while (x<=n){ for(i=x;i<=length(a);i+=n) printf "%s",a[i]"\t"; print ""; x++; } }' |column -t
 ```
 
 #  IV) Assess consistence of the results for 10 replicates using the same sets of parameters
-## A) Run prevalence script
-```{bash}
-for i in seq 10; do time Rscript ../prevalence_script_test.R Sim_data_Pop_size_1000_Preval_50.txt Results_Simu_PopSize_50_Preval_50_succ_10_meandiff_2_minmaxdiff_1_replicate_"$i" 50 2 10 1; done
-
+## A) Run the pipeline:
+The commands below run 10 times the pipeline the dataset generated in **I)** with a population of a 1,000 individuals and a prevalence rate of 50%. All parameters were set to default values.
+```bash
+for i in seq 10; do
+  time Rscript ../Estimate_prevalence_terminal.R Sim_data_Pop_size_1000_Preval_50.txt Results_Simu_PopSize_50_Preval_50_succ_10_meandiff_2_minmaxdiff_1_replicate_"$i" 50 2 10 1
+done
 ```
 
 ## B) Gather the results
+The command used to summarise the results in Supplementary Table S2 (part C)
 ```{bash}
 cat *replicate_* |grep -v "Prevalence"|awk '{print $3"\t"$4}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g'
 ```
