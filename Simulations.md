@@ -87,6 +87,7 @@ Population  size:  100  ind  |  Simulated  Prevalence:  50%  |  Inferred  Preval
 
 ```
 
+## C) Gather the results for Table S2 (part A)
 The command used to summarise the results in Supplementary Table S2 (part A)
 ```bash
 (for pop in 100 1000 10000; do
@@ -125,7 +126,7 @@ Host_species	Taxa	Prevalence	thres_stability
 Host1	Symbiont_name	51.1428571428571	13
 ```
 
-## B) Gather the results
+## B) Gather the results for Table S2 (part B)
 
 The command used to summarise the results in Supplementary Table S2 (part B):
 ```bash
@@ -145,7 +146,7 @@ for i in seq 10; do
 done
 ```
 
-## B) Gather the results
+## B) Gather the results for Table S2 (part C)
 The command used to summarise the results in Supplementary Table S2 (part C)
 ```{bash}
 cat *replicate_* |grep -v "Prevalence"|awk '{print $3"\t"$4}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g'
