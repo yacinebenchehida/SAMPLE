@@ -31,7 +31,7 @@ Host1      1
 Host1      1
 Host1      0
 Host1      0
-...
+...        ...
 
 ```
 
