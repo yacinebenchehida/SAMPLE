@@ -10,10 +10,11 @@ To-do lists for Yacine and for Henrique
 - ~~Re-do the figure (with the 06m instead of 6m)~~
 - ~~Make the example file already preloaded into the package~~
 - Add examples on how to run the functions at the end of every function
-- Update the simulation script
+- ~~Update the simulation script~~
 - ~~Send screenshots~~
 - ~~full_script input path to data OR a df already available.~~
-
+- I am not sure it is currently in the ms, but the pipeline can take tabulation separated input file (.tsv) or comma separated input file (.csv). I am mentionning that because a space separated input generates an error. We could include spaces as well but then if a label is called "Genus species" then that space is to confuse the pipeline as it's going to consider the two as two different columns. 
+  
 ## Henrique
 - ~~Send the Example file to Yacine~~
 - ~~Download the package~~
