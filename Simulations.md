@@ -1,4 +1,6 @@
 # I) Generate the simulated data
+
+The R code below was used to generated the simulations:
 ```r
 setwd("/Users/yacinebenchehida/Desktop/Other/Henrique/Crab simulations")
 system("mkdir -p Simulations")
@@ -37,6 +39,8 @@ Host1      0
 
 #  II) Assess impact of prevalence rate, number of replicates, and population size
 ## A) Run prevalence script on each data set generated in I)
+
+The commands below run pipeline on each dataset generated in I while varying the number of replicates from 10 to 500. The values of the number of successive points, the mean-difference and max-mean-difference parameters were kept at their default values:
 ```bash
 for i in $(ls Sim_data*txt|tac); do
   for j in 10 20 30 40 50 60 70 80 90 100 200 500; do
@@ -47,11 +51,16 @@ for i in $(ls Sim_data*txt|tac); do
   done
 done
 ```
-These commands run pipeline on each dataset generated in I while varying the number of replicates from 10 to 500. 
+
+For each set of parameters, the pipeline returns a two lines text file (and a pdf) with the results. The text file looks like this:
+```
+Host_species  Taxa           Prevalence  thres_stability
+Host1         Symbiont_name  48.5        51
+```
 
 ## B) Extract the results 
-```bash
 
+```bash
 for i in Results*txt; do
   Size=$(echo $i|cut -d _ -f 4)
   Preval=$(echo $i|cut -d _ -f 6|perl -pe 's/\.txt//g')
