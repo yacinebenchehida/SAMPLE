@@ -13,8 +13,9 @@
 #'
 #' data("coral_symbionts")
 #' set.seed(812)
-#' perm = RunPerm(input = coral_symbionts,replicates = 50)
-#' StabAssess(data = perm,stability_thres = 5 ,sucess_points = 5,diff = 2 )
+#' perm <-  RunPerm(input = coral_symbionts,replicates = 50)
+#' stability <- StabAssess(data = perm,stability_thres = 5 ,sucess_points = 5,diff = 2 )
+#' stability
 #'
 #' @export
 
