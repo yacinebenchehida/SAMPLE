@@ -14,11 +14,11 @@
 #' @examples
 #' data("coral_symbionts")
 #' set.seed(812)
-#' Full_script(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thres = 2,sucess_points = 10,diff = 1)
+#' SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thres = 2,sucess_points = 10,diff = 1)
 
 #' @export
 
-Full_script <- function(input,output_N="Results",replicates=50,stability_thres=2,sucess_points=10,diff=1){
+SAMPLE <- function(input,output_N="Results",replicates=50,stability_thres=2,sucess_points=10,diff=1){
   ###############
   # Upload data #
   ###############
