@@ -1,13 +1,15 @@
 #' Run permutations
 #'
+#' @importFrom magrittr %>%
+#' @importFrom dplyr if_else
+#' @import ggplot2
 #' @param input The input dataframe (a dataframe object)
 #' @param replicates Nnumber of permutation replicates to perform (an integer; default replicates=50)
 #' @return A dataframe.
 #'
 #' @examples
-#'
-#' data <- read.table("Example_file.txt")
-#' RunPerm(input = data,replicates = 50)
+#' data("coral_symbionts")
+#' RunPerm(input = coral_symbionts,replicates = 50)
 #'
 #' @export
 
@@ -15,20 +17,39 @@ RunPerm <- function(input,replicates=50){
   ###############
   # Upload data #
   ###############
-  data = read.table(input, header = T, sep = "\t", fill=TRUE) # Read input data file
-  colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
-
-  # Replace missing data by 0
-  data[is.na(data)] <- 0
-
-  # Replace data larger than 1 to 1
-  if (max(unlist(data[,-c(1)])) > 1){
-    print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
-    replace_larger_1 <- function(x){
-      if_else(x > 1,1,x)
+  if(class(input) == "data.frame"){
+    print("input is a data frame")
+    df_name = deparse(substitute(input))
+    input[is.na(input)] <- 0
+    data <- input
+    df.name <- deparse(substitute(data))
+    print(df_name)
+    colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
+    # Replace data larger than 1 to 1
+    if (max(unlist(data[,-c(1)])) > 1){
+      print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
+      replace_larger_1 <- function(x){
+        if_else(x > 1,1,x)
+      }
+      data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
     }
-    data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
+  } else{
+    print("input is a not data frame")
+    data = read.table(input, header = T, sep=c("\t",","), fill=TRUE) # Read input data file
+    df_name = input
+    colnames(data) = c("Host", colnames(data)[2:dim(data)[2]])
 
+    # Replace missing data by 0
+    data[is.na(data)] <- 0
+
+    # Replace data larger than 1 to 1
+    if (max(unlist(data[,-c(1)])) > 1){
+      print("DATA NOT ENCODED AS 0 AND 1. I AM GOING TO CONVERT VALUES LARGER THAN 1 to 1.")
+      replace_larger_1 <- function(x){
+        if_else(x > 1,1,x)
+      }
+      data <- data %>% dplyr::mutate_if(is.numeric, replace_larger_1)
+    }
   }
 
   #######################################
