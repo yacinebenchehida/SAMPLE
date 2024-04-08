@@ -2,38 +2,40 @@
 % Please edit documentation in R/SAMPLE.R
 \name{SAMPLE}
 \alias{SAMPLE}
-\title{Running all the steps of the SAMPLE pipeline}
+\title{Executing this function runs all the steps of the SAMPLE pipeline. Only the input dataframe is necessary to run SAMPLE, all the other arguments have default values that can be adjusted, but it is not necessary to do so. To obtain the same output as in the example, remember to set.seed(812) after importing the dataset.
+Alternatively, SAMPLE can be run using separate functions. To do so, please refer to RunPerm() for the first step of this process.}
 \usage{
 SAMPLE(
   input,
   output_N = "Results",
   replicates = 50,
-  stability_thres = 2,
+  stability_thresh = 2,
   sucess_points = 10,
   diff = 1
 )
 }
 \arguments{
-\item{input}{Input dataframe (a dataframe object)}
+\item{input}{Input dataframe (a dataframe object).}
 
-\item{output_N}{Prefix used for the output (a character; default output_N="Results")}
+\item{output_N}{Prefix used for the output (a character; default output_N="Results").}
 
-\item{replicates}{Nnumber of permutation replicates to perform (an integer; default replicates=50)}
+\item{replicates}{Number of permutation replicates to perform (an integer; default replicates=50).}
 
-\item{stability_thres}{Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float, default stability_thres = 2.0).}
+\item{stability_thresh}{Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float; default stability_thresh = 2.0).}
 
-\item{sucess_points}{Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thres) used to define stability (an integer; default stability_thres = 10).}
+\item{sucess_points}{Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thresh) used to define stability (an integer; default stability_thresh = 10).}
 
-\item{diff}{Difference between the absolute minimum and maximum values among the all the means used to set the stability threshold (a float, default diff = 1.0).}
+\item{diff}{Difference between absolute minimum and maximum values among the all the means used to set the stability threshold (a float; default diff = 1.0).}
 }
 \value{
 A textfile and a pdf.
 }
 \description{
-Running all the steps of the SAMPLE pipeline
+Executing this function runs all the steps of the SAMPLE pipeline. Only the input dataframe is necessary to run SAMPLE, all the other arguments have default values that can be adjusted, but it is not necessary to do so. To obtain the same output as in the example, remember to set.seed(812) after importing the dataset.
+Alternatively, SAMPLE can be run using separate functions. To do so, please refer to RunPerm() for the first step of this process.
 }
 \examples{
 data("coral_symbionts")
 set.seed(812)
-SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thres = 2,sucess_points = 10,diff = 1)
+SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thresh = 2,sucess_points = 10,diff = 1)
 }
