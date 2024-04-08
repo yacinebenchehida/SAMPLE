@@ -4,7 +4,7 @@
 #' @importFrom dplyr if_else
 #' @import ggplot2
 #' @param input The input dataframe (a dataframe object)
-#' @param replicates Nnumber of permutation replicates to perform (an integer; default replicates=50)
+#' @param replicates Number of permutation replicates to perform (an integer; default replicates=50)
 #' @return A dataframe.
 #'
 #' @examples
@@ -113,12 +113,12 @@ RunPerm <- function(input,replicates=50){
   ###########################################################################
   # Combine permutations results and make sure they are in the right format #
   ###########################################################################
-  data = do.call(rbind, list) #  Combine the results
-  data = as.data.frame(data) #  Results into a data frame format
-  colnames(data) = c("Prevalence","Taxa","Substract","replicates","Host_sp","colonies") #  define column names
-  data$Prevalence = as.numeric(data$Prevalence) #  Make sure the number of crabs is a numeric value
-  data$Substract = as.numeric(data$Substract) #  Make sure the number of individuals removed is a numeric value
+  permuted_output_df = do.call(rbind, list) #  Combine the results
+  permuted_output_df = as.data.frame(permuted_output_df) #  Results into a data frame format
+  colnames(permuted_output_df) = c("Prevalence","Taxa","Substract","replicates","Host_sp","colonies") #  define column names
+  permuted_output_df$Prevalence = as.numeric(permuted_output_df$Prevalence) #  Make sure the number of crabs is a numeric value
+  permuted_output_df$Substract = as.numeric(permuted_output_df$Substract) #  Make sure the number of individuals removed is a numeric value
 
-  return(data)
+  return(permuted_output_df)
 }
 
