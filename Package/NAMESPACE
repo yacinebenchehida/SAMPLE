@@ -2,8 +2,8 @@
 
 export(RunPerm)
 export(SAMPLE)
-export(StabAssess)
 export(plotstab)
+export(stability)
 import(ggplot2)
 importFrom(dplyr,if_else)
 importFrom(magrittr,"%>%")
