@@ -18,8 +18,7 @@ A dataframe.
 Run permutations
 }
 \examples{
-
-data <- read.table("Example_file.txt")
-RunPerm(input = data,replicates = 50)
+data("coral_symbionts")
+RunPerm(input = coral_symbionts,replicates = 50)
 
 }
