@@ -27,7 +27,7 @@ SAMPLE(
 \item{diff}{Difference between absolute minimum and maximum values among the all the means used to set the stability threshold (a float; default diff = 1.0).}
 }
 \value{
-A textfile and a pdf.
+A text file (.txt) with the output values of the analysis, and a PDF file with the generated plots from the analysis.
 }
 \description{
 Only the input dataframe is necessary to run SAMPLE, all the other arguments have default values that can be adjusted, but it is not necessary to do so. To obtain the same output as in the example, remember to set.seed(812) after importing the dataset.
