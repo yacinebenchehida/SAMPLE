@@ -12,7 +12,8 @@
 #' @param sucess_points Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thresh) used to define stability (an integer; default stability_thresh = 10).
 #' @param stability_thresh Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float; default stability_thresh = 2.0).
 #' @param diff Difference between absolute minimum and maximum values among the all the means used to set the stability threshold (a float; default diff = 1.0).
-#' @return A textfile and a pdf.
+#' @return A text file (.txt) with the output values of the analysis, and a PDF file with the generated plots from the analysis.
+
 #'
 #' @examples
 #' data("coral_symbionts")
