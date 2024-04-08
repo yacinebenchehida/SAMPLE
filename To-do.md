@@ -9,7 +9,7 @@ To-do lists for Yacine and for Henrique
 - ~~Add the seed (812) to the example~~
 - ~~Re-do the figure (with the 06m instead of 6m)~~
 - ~~Make the example file already preloaded into the package~~
-- Add examples on how to run the functions at the end of every function
+- ~~Add examples on how to run the functions at the end of every function~~
 - ~~Update the simulation script~~
 - ~~Send screenshots~~
 - ~~full_script input path to data OR a df already available.~~
