@@ -15,8 +15,8 @@
 #' data("coral_symbionts")
 #' set.seed(812)
 #' perm = RunPerm(input = coral_symbionts,replicates = 50)
-#' stability = StabAssess(data = perm,stability_thres = 5 ,success_points = 5,diff = 2 )
-#' plotstab(data = perm, info = stability, outputName = "Stability_example")
+#' stable = stability(data = perm,stability_thres = 5 ,success_points = 5,diff = 2 )
+#' plotstab(data = perm, info = stable, outputName = "Stability_example")
 #'
 #' @export
 
