@@ -15,12 +15,12 @@
 #' data("coral_symbionts")
 #' set.seed(812)
 #' perm <-  RunPerm(input = coral_symbionts,replicates = 50)
-#' stability <- StabAssess(data = perm,stability_thresh = 5 ,success_points = 5,diff = 2 )
-#' stability
+#' stable <- StabAssess(data = perm,stability_thresh = 5 ,success_points = 5,diff = 2 )
+#' stable
 #'
 #' @export
 
-StabAssess <- function(data,stability_thresh=2,success_points=50,diff=1){
+ stability <- function(data,stability_thresh=2,success_points=50,diff=1){
 
   #######################################
   # Set the number of replicates to use #
