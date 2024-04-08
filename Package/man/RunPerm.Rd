@@ -9,7 +9,7 @@ RunPerm(input, replicates = 50)
 \arguments{
 \item{input}{The input dataframe (a dataframe object)}
 
-\item{replicates}{Nnumber of permutation replicates to perform (an integer; default replicates=50)}
+\item{replicates}{Number of permutation replicates to perform (an integer; default replicates=50)}
 }
 \value{
 A dataframe.
