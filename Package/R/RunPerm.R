@@ -63,7 +63,7 @@ RunPerm <- function(input,replicates=50){
   cat("\n")
   cat("Running with the following settings:\n")
 
-  cat(paste("Input file name: ",input,sep=""),"\n")
+  cat(paste("Input name: ",df_name,sep=""),"\n")
   cat(paste("Number of replicates: ",repli,sep=""),"\n")
   cat("\n")
 
