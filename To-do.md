@@ -18,9 +18,10 @@ To-do lists for Yacine and for Henrique
 ## Henrique
 - ~~Send the Example file to Yacine~~
 - ~~Download the package~~
-- Adjust the help files and re-write/tweak whatever is needed; send this back to Yacine
+- ~~Adjust the help files and re-write/tweak whatever is needed; send this back to Yacine~~
 - ~~Put the manuscript as preprint or not?~~
-- Suggest reviewers
+- ~~Suggest reviewers~~
+- Elaborate caption of Fig. 1
 - Elaborate caption of Fig. 2
 - ~~Add extension of Fig. 2~~
 - Go through the manuscript
