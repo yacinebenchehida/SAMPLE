@@ -1,11 +1,13 @@
 #' Run permutations
 #'
+#' This function defines the number of permutations (default = 50) and runs the permutations on an input dataframe. A minimum number of 10 permutations is recommended in order to avoid having very large or very small stability values due to the stochastic nature of the process. On a large dataset, increasing the number of permutations can considerably slow down the analysis. Please refer to the Simulations section to see how changing permutation values can impact stability values.
+#'
 #' @importFrom magrittr %>%
 #' @importFrom dplyr if_else
 #' @import ggplot2
-#' @param input The input dataframe (a dataframe object)
-#' @param replicates Number of permutation replicates to perform (an integer; default replicates=50)
-#' @return A dataframe.
+#' @param input Input dataframe (a dataframe object).
+#' @param replicates Number of permutation replicates to perform (an integer; default replicates=50).
+#' @return A dataframe with the output values of the permutation analysis.
 #'
 #' @examples
 #' data("coral_symbionts")
