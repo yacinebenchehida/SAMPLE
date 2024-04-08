@@ -16,15 +16,16 @@ StabAssess(data, stability_thres = 2, sucess_points = 50, diff = 1)
 \item{diff}{Difference between the absolute minimum and maximum values among the all the means used to set the stability threshold (a float, default diff = 1.0).}
 }
 \value{
-Two dataframes
+A dataframe
 }
 \description{
 Assess the stability
 }
 \examples{
 
-data <- read.table("Example_file.txt")
-perm = RunPerm(input = data,replicates = 50)
+data("coral_symbionts")
+set.seed(812)
+perm = RunPerm(input = coral_symbionts,replicates = 50)
 StabAssess(data = perm,stability_thres = 5 ,sucess_points = 5,diff = 2 )
 
 }
