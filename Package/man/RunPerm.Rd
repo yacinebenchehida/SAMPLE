@@ -19,6 +19,7 @@ Run permutations
 }
 \examples{
 data("coral_symbionts")
-RunPerm(input = coral_symbionts,replicates = 50)
+perm <- RunPerm(input = coral_symbionts,replicates = 50)
+perm
 
 }
