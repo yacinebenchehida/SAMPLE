@@ -46,3 +46,13 @@ Millepora complanata     Megabalanus stultus         21.3846153846154  9
 Orbicella faveolata_06m  Troglocarcinus corallicola  59.6923076923077  9
 Orbicella faveolata_15m  Troglocarcinus corallicola  38.7142857142857  10
 ```
+
+### How to run the pipeline a step at a time
+
+```
+data("coral_symbionts")
+set.seed(812)
+perm = RunPerm(input = coral_symbionts,replicates = 50)
+stable = stability(data = perm,stability_thres = 5 ,success_points = 5,diff = 2 )
+plotstab(data = perm, info = stable, outputName = "Stability_example")
+```
