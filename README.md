@@ -52,9 +52,16 @@ Orbicella faveolata_15m  Troglocarcinus corallicola  38.7142857142857  10
 ### How to run the pipeline a step at a time
 
 ```
+#) 1) Load data
 data("coral_symbionts")
+
+# 2) Run the permutations
 set.seed(812)
 perm = RunPerm(input = coral_symbionts,replicates = 50)
+
+# 3) Assess the stability based on the performed permutations
 stable = stability(data = perm,stability_thres = 5 ,success_points = 5,diff = 2 )
+
+# 4) Plot the results
 plotstab(data = perm, info = stable, outputName = "Stability_example")
 ```
