@@ -1,4 +1,4 @@
-Coral_species	Opecarcinus_hypostegus	Troglocarcinus_corallicola	Domecia_acanthophora	Acanthemblemaria_spinosa	Spirobranchus_polycerus	Megabalanus stultus
+Coral_species	Opecarcinus_hypostegus	Troglocarcinus_corallicola	Domecia_acanthophora	Acanthemblemaria_spinosa	Spirobranchus_polycerus	Megabalanus_stultus
 Agaricia_agaricites	NA	NA	NA	NA	NA	NA
 Agaricia_agaricites	1	NA	NA	NA	NA	NA
 Agaricia_agaricites	NA	NA	NA	NA	NA	NA
