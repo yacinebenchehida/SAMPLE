@@ -30,8 +30,6 @@ The pipeline generates two types of files:
 
 <img src="Figures/Example.png" width="90%" height="90%"/>
 
-EXPLANATIONS
-
 - A text file showing for each host species and each taxa the sample size at which the prevalence becomes stable.
 
 ```
@@ -46,6 +44,10 @@ Millepora complanata     Megabalanus stultus         21.3846153846154  9
 Orbicella faveolata_06m  Troglocarcinus corallicola  59.6923076923077  9
 Orbicella faveolata_15m  Troglocarcinus corallicola  38.7142857142857  10
 ```
+
+- The plot below explains what the different elements present on the plots represent:
+<img src="Figures/Explanations.png" width="70%" height="70%"/>
+
 
 ### How to run the pipeline a step at a time
 
