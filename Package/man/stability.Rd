@@ -19,7 +19,7 @@ stability(data, stability_thresh = 2, success_points = 50, diff = 1)
 A dataframe with the output values of the stability assessment analysis.
 }
 \description{
-This function determines the stability values for all of the input variables in the dataset (e.g. species, habitats). Stability is defined here as the minimum occurrence value at which the variable in question stayed stable. See the arguments below to understand how they can affect the determination of these stability values.
+This function determines the stability values for all of the input variables in the dataset (e.g. species, habitats). Stability here is defined as the minimum occurrence value at which the variable in question stayed stable. See the arguments below to understand how they can affect the stability values.
 }
 \examples{
 
