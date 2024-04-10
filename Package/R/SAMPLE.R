@@ -1,6 +1,6 @@
 #' Executing this function runs all the steps of the SAMPLE pipeline.
 #'
-#' Only the input dataframe is necessary to run SAMPLE, all the other arguments have default values that can be adjusted, but it is not necessary to do so. To obtain the same output as in the example, remember to set.seed(812) after importing the dataset.
+#' Only the input dataframe is required to run SAMPLE, all the other arguments have default values that can be adjusted (but it is not necessary to do so). To obtain the same output as in the example file, remember to set.seed(812) after importing the dataset.
 #' Alternatively, SAMPLE can be run using separate functions. To do so, please refer to RunPerm() for the first step of this process.
 
 #' @importFrom magrittr %>%
