@@ -6,7 +6,7 @@ A DESCRIPTION
 
 ``` r
 library("devtools")
-devtools::install_github("yacinebenchehida/SAMPLE/Package")
+devtools::install_github("yacinebenchehida/SAMPLE")
 ```
 
 ## Dependencies
