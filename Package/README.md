@@ -42,7 +42,7 @@ Acropora palmata         Domecia acanthophora        88                8
 Acropora palmata         Spirobranchus polycerus     43                12
 Millepora complanata     Domecia acanthophora        17.5555555555556  14
 Millepora complanata     Acanthemblemaria spinosa    21.5384615384616  9
-Millepora complanata     Megabalanus                 21.3846153846154  9
+Millepora complanata     Megabalanus stultus         21.3846153846154  9
 Orbicella faveolata_06m  Troglocarcinus corallicola  59.6923076923077  9
 Orbicella faveolata_15m  Troglocarcinus corallicola  38.7142857142857  10
 ```
