@@ -1,6 +1,6 @@
 #' Run permutations
 #'
-#' This function defines the number of permutations (default = 50) and runs the permutations on an input dataframe. A minimum number of 10 permutations is recommended in order to avoid having very large or very small stability values due to the stochastic nature of the process. On a large dataset, increasing the number of permutations can considerably slow down the analysis. Please refer to the Simulations section to see how changing permutation values can impact stability values.
+#' This function defines the number of permutations (default = 50) and subsequently runs the permutations on an input dataframe. A minimum number of 10 permutations is recommended in order to avoid having very large or very small stability values due to the stochastic nature of the process. On a large dataset, increasing the number of permutations can considerably slow down the analysis. Please refer to the Simulations section to see how changing permutation values can impact stability values.
 #'
 #' @importFrom magrittr %>%
 #' @importFrom dplyr if_else
