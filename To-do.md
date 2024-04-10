@@ -21,9 +21,9 @@ To-do lists for Yacine and for Henrique
 - ~~Adjust the help files and re-write/tweak whatever is needed; send this back to Yacine~~
 - ~~Put the manuscript as preprint or not?~~
 - ~~Suggest reviewers~~
-- Elaborate caption of Fig. 1
-- Elaborate caption of Fig. 2
+- ~~Elaborate caption of Fig. 1~~
+- ~~Elaborate caption of Fig. 2~~
 - ~~Add extension of Fig. 2~~
-- Go through the manuscript
+- ~~Go through the manuscript~~
 - Add code in the manuscript to load example file
-- Update manuscript to match the new figure
+- ~~Update manuscript to match the new figure~~
