@@ -1,6 +1,6 @@
 # SAMPLE: 
 
-A DESCRIPTION
+SAMPLE is an R package that can benefit many community ecologists adjust their sampling efforts when studying prevalence rates. The simplicity of SAMPLE allows researchers to run it in the field and dynamically adjust sampling schemes as needed.
 
 ## Install
 
@@ -52,7 +52,7 @@ Orbicella faveolata_15m  Troglocarcinus corallicola  38.7142857142857  10
 ### How to run the pipeline a step at a time
 
 ```
-#) 1) Load data
+#) 1) Load the data
 data("coral_symbionts")
 
 # 2) Run the permutations
