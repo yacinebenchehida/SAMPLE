@@ -47,6 +47,14 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
   }
   maximum_species = max(do.call(c,list))
 
+  cat("\n")
+
+  cat(paste("Number of hosts: ",length(unique(info$Host_sp)),sep=""),"\n")
+  cat(paste("Number of symbionts: ", n,sep=""),"\n")
+  cat(paste("Maximum number of symbionts per host: ",maximum_species,sep=""),"\n")
+  cat("\n")
+
+
   #if(maximum_species < 3){ # If it smaller than 6 is you color code below
   #  couleur = viridis(begin = 0, end = .75, n)
   #}else if((maximum_species > 2) && (maximum_species < 7)){
@@ -59,7 +67,7 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
   #couleur = col_vector[1:n]
   #}
 
-  if(maximum_species < 8){
+  if(n < 8){
     couleur = c("#7B3014","#D04A07","#F98C40","black","#5AA5CD","#236CA7","#26456E")
   }else{ # If it large use a random color code assigned by the brewer palette
     print("Warning: Too many host species the plot is going to be very cluttered and hard to read")
@@ -67,6 +75,8 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
     col_vector = unlist(mapply(RColorBrewer::brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
     couleur = col_vector[1:n]
   }
+  cat("Color scheme defined","\n")
+  cat("Start plotting","\n")
 
   ###################
   # Start plotting  #
@@ -87,9 +97,9 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
       plot_data$colonies = as.numeric(plot_data$colonies)
       plot_data$Taxa = as.factor(taxonomy_names)
 
-      p = ggplot2::ggplot(plot_data, aes(x=colonies, y=avg,color=Taxa)) + geom_point(size=0.5) + ggplot2::scale_color_manual(values = couleur)
+      p = ggplot2::ggplot(plot_data, ggplot2::aes(x=colonies, y=avg,color=Taxa)) + ggplot2::geom_point(size=0.5) + ggplot2::scale_color_manual(values = couleur)
       p = p +  ggplot2::theme_bw() + ggplot2::facet_wrap(Host_sp~., scales = "free",  ncol = 3) +  ggplot2::xlab("Number of samples") + ggplot2::ylab("Prevalence (%)")
-      p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1"),strip.text.x = element_text(size = 14,face = "bold.italic"),legend.text=element_text(size=15),legend.title=element_text(size=16),axis.title=element_text(size=15),axis.text = element_text(size = 15))
+      p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1"),strip.text.x = ggplot2::element_text(size = 14,face = "bold.italic"),legend.text=ggplot2::element_text(size=15),legend.title=ggplot2::element_text(size=16),axis.title=ggplot2::element_text(size=15),axis.text = ggplot2::element_text(size = 15))
       p = p + ggplot2::geom_ribbon(data=plot_data,aes(ymin=lci,ymax=uci),fill="grey", color="grey",alpha =0.5)
       p = p + ggplot2::geom_vline(data  = info[info$type_species==taxonomy_names,], aes(xintercept = thres),color = couleur[count] , linetype="dotted")
       p = p + ggplot2::geom_text(y = Inf, aes(x = Inf, label = ifelse(thres < 100, gsub(pattern = "(.+)", " \\1 ", thres), thres)),data = info[info$type_species==taxonomy_names,], color = couleur[count],hjust =1.2, vjust = 2,size = 4.5)
@@ -107,7 +117,7 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
       plot_data$colonies = as.numeric(plot_data$colonies)
       plot_data$Taxa = as.factor(taxonomy_names)
 
-      p = p + ggplot2::geom_point(data = plot_data, aes(x=colonies, y=avg, color=Taxa) ,size=0.5) +  ggplot2::scale_color_manual(values = couleur)
+      p = p + ggplot2::geom_point(data = plot_data, ggplot2::aes(x=colonies, y=avg, color=Taxa) ,size=0.5) +  ggplot2::scale_color_manual(values = couleur)
       p = p + ggplot2::theme_bw() + ggplot2::facet_wrap(Host_sp~., scales = "free",  ncol = 3)
       p = p + ggplot2::theme(strip.background =element_rect(fill="wheat1")) + ggplot2::theme(legend.position="bottom")
       p = p + ggplot2::theme(strip.text = element_text(face = "bold.italic",size = 14),legend.text=element_text(size=15,face="italic"),legend.title=element_text(size=16),axis.title=element_text(size=15),axis.text = element_text(size = 15))
@@ -131,22 +141,14 @@ plotstab <- function(data,info,outputName="Results",outputDir="./"){
     plot(p)
     dev.off()
   } else if (nb_sp > 4){ # If there are more
-    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 3.5) # this define the width and the length of the pdf if there are more than 3 species to plot
+    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 4) # this define the width and the length of the pdf if there are more than 3 species to plot
     plot(p)
     dev.off()
   } else {
-    pdf(paste(output_name, ".pdf", sep=""),8,5) # this define the width and the length of the pdf if there are more than 3 species to plot
+    pdf(paste(output_name, ".pdf", sep=""),8,5) # this define the width and the length of the pdf if there are four species to plot
     plot(p)
     dev.off()
   }
-
-  ###############################
-  # Save results as a text file #
-  ###############################
-  textfile = info[,c(1,4,3,2)] # Create an object textfile coutaning the same information as info but reshape in a more meaningful order.
-  colnames(textfile) = c("Host_species","Taxa","Prevalence","thres_stability")
-  write.table(file = paste(output_name, ".txt", sep=""), x = textfile,quote = FALSE,sep = "\t",row.names = FALSE,col.names = TRUE) # Save the results as a text file.
-
 }
 
 
