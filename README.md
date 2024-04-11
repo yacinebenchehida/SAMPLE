@@ -21,7 +21,7 @@ SAMPLES requires: `ggplot2`, `dplyr`, `Rmisc`,`RColorBrewer`, `magrittr`.
 library(SAMPLE)
 data("coral_symbionts")
 set.seed(812)
-SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thresh = 2,sucess_points = 10,diff = 1)
+SAMPLE(input = coral_symbionts, output_N = "Example", replicates = 50, stability_thresh = 2, sucess_points = 10, diff = 1)
 ```
 
 ### Output
@@ -60,7 +60,7 @@ set.seed(812)
 perm = RunPerm(input = coral_symbionts,replicates = 50)
 
 # 3) Assess the stability based on the performed permutations
-stable = stability(data = perm,stability_thres = 5 ,success_points = 5,diff = 2 )
+stable = stability(data = perm, stability_thresh = 2, success_points = 10, diff = 1)
 
 # 4) Plot the results
 plotstab(data = perm, info = stable, outputName = "Stability_example")
