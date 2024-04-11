@@ -329,11 +329,11 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
     pdf(paste(output_name, ".pdf", sep=""),length(unique(data$Host_sp))*5,6) # this define the width and the length of the pdf if there are less than 4 species to plot
     plot(p)
     dev.off()
-  } else if (nb_sp > 4){ # If there are more
-    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 4) # this define the width and the length of the pdf if there are more than 3 species to plot
+  } else if (nb_sp > 4){ # If there are more than 4 species
+    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 4) # this define the width and the length of the pdf if there are more than 4 species to plot
     plot(p)
     dev.off()
-  } else {
+  } else {  # If there are exactly 4 species
     pdf(paste(output_name, ".pdf", sep=""),8,5) # this define the width and the length of the pdf if there are four species to plot
     plot(p)
     dev.off()
