@@ -236,6 +236,14 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
   }
   maximum_species = max(do.call(c,list))
 
+  cat("\n")
+
+  cat(paste("Number of hosts: ",length(unique(info$Host_sp)),sep=""),"\n")
+  cat(paste("Number of symbionts: ", n,sep=""),"\n")
+  cat(paste("Maximum number of symbionts per host: ",maximum_species,sep=""),"\n")
+  cat("\n")
+
+
   #if(maximum_species < 3){ # If it smaller than 6 is you color code below
   #  couleur = viridis(begin = 0, end = .75, n)
   #}else if((maximum_species > 2) && (maximum_species < 7)){
@@ -256,6 +264,8 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
     col_vector = unlist(mapply(RColorBrewer::brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
     couleur = col_vector[1:n]
   }
+  cat("Color scheme defined","\n")
+  cat("Start plotting","\n")
 
   ###################
   # Start plotting  #
