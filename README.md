@@ -26,11 +26,11 @@ SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_th
 
 ### Output
 The pipeline generates two types of files:
-- A pdf showing the how the prevalence change as the sampling increases
+- A pdf showing how the prevalence rate changes as the sampling increases;
 
 <img src="Figures/Example.png" width="90%" height="90%"/>
 
-- A text file showing for each host species and each taxa the sample size at which the prevalence becomes stable.
+- A text file showing for each host species and each taxa the sample size at which the prevalence rate becomes stable.
 
 ```
 Host_species             Taxa                        Prevalence        thres_stability
