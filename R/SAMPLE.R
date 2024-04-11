@@ -9,7 +9,7 @@
 #' @param input Input dataframe (a dataframe object).
 #' @param output_N Prefix used for the output (a character; default output_N="Results").
 #' @param replicates Number of permutation replicates to perform (an integer; default replicates=50).
-#' @param sucess_points Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thresh) used to define stability (an integer; default stability_thresh = 10).
+#' @param success_points Number of successive (mean) prevalence rates that are below a threshold (see parameter stability_thresh) used to define stability (an integer; default stability_thresh = 10).
 #' @param stability_thresh Threshold used to define stability (an integer). This value will be divided by the square root of the number of replicates (a float; default stability_thresh = 2.0).
 #' @param diff Difference between absolute minimum and maximum values among the all the means used to set the stability threshold (a float; default diff = 1.0).
 #' @return A text file (.txt) with the output values of the analysis, and a PDF file with the generated plots from the analysis.
@@ -18,11 +18,11 @@
 #' @examples
 #' data("coral_symbionts")
 #' set.seed(812)
-#' SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thresh = 2,sucess_points = 10,diff = 1)
+#' SAMPLE(input = coral_symbionts,output_N = "Example",replicates = 50,stability_thresh = 2,success_points = 10,diff = 1)
 
 #' @export
 
-SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,sucess_points=10,diff=1){
+SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,success_points=10,diff=1){
   ###############
   # Upload data #
   ###############
@@ -80,7 +80,7 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
   ###################################
   # Set number of successive points #
   ###################################
-  successive_points = sucess_points
+  successive_points = success_points
 
   #######################################
   # Set difference between mean and max #
