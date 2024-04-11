@@ -248,7 +248,7 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
   #couleur = col_vector[1:n]
   #}
 
-  if(maximum_species < 8){
+  if(n < 8){
     couleur = c("#7B3014","#D04A07","#F98C40","black","#5AA5CD","#236CA7","#26456E")
   }else{ # If it large use a random color code assigned by the brewer palette
     print("Warning: Too many host species the plot is going to be very cluttered and hard to read")
@@ -320,11 +320,11 @@ SAMPLE <- function(input,output_N="Results",replicates=50,stability_thresh=2,suc
     plot(p)
     dev.off()
   } else if (nb_sp > 4){ # If there are more
-    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 3.5) # this define the width and the length of the pdf if there are more than 3 species to plot
+    pdf(paste(output_name, ".pdf", sep=""),12,round(length(unique(data$Host_sp)) / 4) * 4) # this define the width and the length of the pdf if there are more than 3 species to plot
     plot(p)
     dev.off()
   } else {
-    pdf(paste(output_name, ".pdf", sep=""),8,5) # this define the width and the length of the pdf if there are more than 3 species to plot
+    pdf(paste(output_name, ".pdf", sep=""),8,5) # this define the width and the length of the pdf if there are four species to plot
     plot(p)
     dev.off()
   }
