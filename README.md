@@ -21,7 +21,7 @@ SAMPLES requires: `ggplot2`, `dplyr`, `Rmisc`,`RColorBrewer`, `magrittr`.
 library(SAMPLE)
 data("coral_symbionts")
 set.seed(812)
-SAMPLE(input = coral_symbionts, output_N = "Example", replicates = 50, stability_thresh = 2, sucess_points = 10, diff = 1)
+SAMPLE(input = coral_symbionts, output_N = "Example", replicates = 50, stability_thresh = 2, success_points = 10, diff = 1)
 ```
 
 ### Output
