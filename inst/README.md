@@ -161,7 +161,7 @@ library(dplyr)
 
 # Set parameters
 sample_size <- 50
-prevalence_levels <- c(0.01, 0.1, 0.5, 0.9, 0.99)
+prevalence_levels <- c(0.01, 0.1, 0.5, 0.9, 0.99) # Testing prevalences of 1%, 10%, 50%, 90%, 99%.
 num_replicates <- 1000
 
 # Function to simulate prevalence estimation using binomial sampling
@@ -169,7 +169,6 @@ simulate_prevalence <- function(true_prevalence) {
   observed_prevalences <- numeric(num_replicates)
   
   for (i in 1:num_replicates) {
-    # Instead of constructing a population, sample directly using rbinom
     sample <- rbinom(sample_size, 1, true_prevalence)
     observed_prevalences[i] <- mean(sample)
   }
