@@ -209,7 +209,7 @@ simulate_data <- function(prevalence, sample_size) {
   Present <- 0
   a = 1
   
-  # For each sample, update the prevalence estimate and CI
+  # For each sample, update the prevalence estimate
   for (i in 1:sample_size) {
     # Simulate the presence/absence of the species (1 = present, 0 = absent)
     new_sample <- rbinom(1, 1, prevalence/100)
@@ -271,6 +271,91 @@ The results confirm that SAMPLE consistently detects stable prevalence estimates
 
 # The Influence of sampling on prevalence estimation in SAMPLE
 ## No sampling and errors in prevalence estimates (Figure S3)
+
+```R
+library(SAMPLE)
+args = commandArgs(trailingOnly=TRUE)
+simulations_number <- args[1]
+
+sample_size = 100 # Sample of 100 individuals
+Prevalence = c(seq(1,99,1))
+
+# Simulate sampling for low and high prevalence
+simulate_data <- function(prevalence, sample_size) {
+  Present <- 0
+  a = 1
+  
+  # For each sample, update the prevalence estimate
+  for (i in 1:sample_size) {
+    # Simulate the presence/absence of the species (1 = present, 0 = absent)
+    new_sample <- rbinom(1, 1, prevalence/100)
+    Present <- Present + new_sample
+    estimated_prevalence <- Present /i 
+    Absent <- Pop_size - Present
+    simdata = as.data.frame(cbind("Host1",c(rep(1,Present),rep(0,Absent))))
+    simdata <- simdata[sample(1:nrow(simdata),replace=FALSE), ]
+
+  }
+  perm = RunPerm(input = simdata,replicates = 50)
+  stable = stability(data = perm, stability_thresh = 2, success_points = 10, diff = 1)
+
+  return(abs(stable$Prevalence - estimated_prevalence*100))
+  
+}
+
+results <- mapply(simulate_data, MoreArgs = list(sample_size = sample_size), Prevalence)
+results <- as.data.frame(cbind(Prevalence,results))
+write.table(x = results,file = paste("simulations_error_",simulations_number,".txt",sep=""),sep="\t",row.names = FALSE, col.names = TRUE,quote = FALSE)
+```
+
 ## Sampling and errors in prevalence estimates (Figure S4)
+```R
+library(SAMPLE)
+args = commandArgs(trailingOnly=TRUE)
+simulations_number <- args[1]
 
+library(SAMPLE)
 
+Pop_size <- 100000 # Assumes a population size of 100,000 individuals
+Sample_size = 100 # Sample of 100 individuals
+Prevalence = c(seq(1,99,1))
+
+simulate_data <- function(Prevalence, Pop_size, Sample_size) {
+  # Simulate the complete population
+  Present <- Pop_size * (Prevalence / 100)
+  Absent <- Pop_size - Present
+  simpopulation <- as.data.frame(cbind("Host1", c(rep(1, Present), rep(0, Absent))))
+  
+  # Run simulations
+  result <- tryCatch({
+    # Take a sample of 100 individuals from the population of 100,000 individuals
+    My_sample <- simpopulation[sample(nrow(simpopulation), Sample_size, replace = FALSE), ]
+    
+    # RunPerm and stability 
+    perm <- RunPerm(input = My_sample, replicates = 50)
+    stable <- stability(data = perm, stability_thresh = 2, success_points = 10, diff = 1)
+    
+    # Check if 'stable$Prevalence' exists and is a scalar
+    if (is.null(stable) || length(stable$Prevalence) != 1 || is.na(stable$Prevalence)) {
+      return(NA)  # Return NA if there's any issue with the stability result
+    }
+    
+    # Return the result (this will only run if no error occurs)
+    abs(stable$Prevalence - Prevalence)
+    
+  }, error = function(e) {
+    return(NA)  # Returning NA for failed iterations
+  })
+  
+  return(result)  
+}
+
+# Use mapply to apply the function over your Prevalence values
+results <- mapply(simulate_data, Prevalence, MoreArgs = list(Pop_size = Pop_size, Sample_size = Sample_size), SIMPLIFY = TRUE)
+
+# Filter out any NA values (from failed iterations)
+results_clean <- results[!is.na(results)]
+results <- as.data.frame(cbind(Prevalence,results_clean))
+
+write.table(x = results,file = paste("simulations_sampling_error_",simulations_number,".txt",sep=""),sep="\t",row.names = FALSE, col.names = TRUE,quote = FALSE)
+```
