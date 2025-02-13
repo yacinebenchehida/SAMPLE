@@ -193,15 +193,16 @@ ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
 ```
 
 ##  Implication for SAMPLE (Figure S2)
-This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show (check Figure S5) that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
+SAMPLE evaluates prevalence stability by analyzing how prevalence estimates change as sample size increases. Because the variance of prevalence estimates depends on the true prevalence, this directly influences how quickly SAMPLE detects stability.
+To illustrate this effect, we ran simulations testing known prevalence values ranging from 1% to 99% using 50 individuals per sample. Each prevalence level was simulated 1,000 times, and SAMPLE was applied using its default parameters to determine the point at which stability was reached. The script below shows how to perform a single replicate:
 
 ```R
 library(SAMPLE)
 args = commandArgs(trailingOnly=TRUE)
 simulations_number <- args[1]
 
-sample_size = 50 
-Prevalence = c(seq(1,99,1))
+sample_size = 50 # Sample of 50 individuals
+Prevalence = c(seq(1,99,1)) # test each prevalence from 1% to 99% incremented by 1%.
 
 # Simulate sampling for low and high prevalence
 simulate_data <- function(prevalence, sample_size) {
@@ -234,3 +235,38 @@ results <- mapply(simulate_data, MoreArgs = list(sample_size = sample_size), Pre
 results <- as.data.frame(cbind(Prevalence,results))
 write.table(x = results,file = paste("simulations_",simulations_number,".txt",sep=""),sep="\t",row.names = FALSE, col.names = TRUE,quote = FALSE)
 ```
+
+The simulations were executed computing cluster, using a loop to submit 1,000 independent runs and speed up computations. Then the results were summarised into a single plot using the following script:
+```R
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# List all files (assuming they are in your working directory)
+file_list <- list.files(pattern = "simulations_\\d+\\.txt")
+
+# Read all files and combine them into a single data frame
+combined_data <- do.call(rbind, lapply(file_list, function(file) {
+  read.table(file, header = TRUE)
+}))
+
+# Ensure the column names are correct
+colnames(combined_data) <- c("Prevalence", "results")
+
+# Convert Prevalence to a factor with levels in increasing order
+combined_data$Prevalence <- factor(combined_data$Prevalence, levels = sort(unique(combined_data$Prevalence)))
+
+
+# Plot the mean values with error bars
+pdf("Combined.pdf",15,9)
+ggplot(combined_data, aes(x = Prevalence, y = results)) +
+  geom_boxplot(outlier.shape = NA) +  # Remove outliers
+  scale_x_discrete(limits = sort(unique(combined_data$Prevalence)),breaks = seq(5, 95, by = 5)) +
+  labs(x = "Prevalence (%)", y = "Detected Stability") +
+  theme_minimal()  
+dev.off()
+```
+
+The results confirm that SAMPLE consistently detects stable prevalence estimates more quickly when the true prevalence is either very low or very high. In contrast, when prevalence is around 50%, the variance in observed prevalence estimates is higher, leading to greater fluctuations and delaying stability detection. This outcome aligns with statistical expectations based on the binomial distribution and demonstrates that the observed pattern is an inherent property of prevalence estimation rather than an artifact of the method itself.
+
+The accompanying plot summarizes the distribution of stability detection points across different prevalence levels, highlighting this trend.
