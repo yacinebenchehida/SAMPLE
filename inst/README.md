@@ -310,6 +310,8 @@ write.table(x = results,file = paste("simulations_error_",simulations_number,".t
 ```
 
 ## Sampling and errors in prevalence estimates (Figure S4)
+This simulation evaluates how an additional sampling step affects prevalence estimation in SAMPLE. Instead of drawing individuals directly from a binomial distribution, we first generated a large population of 100,000 individuals with fixed prevalence values ranging from 1% to 99%. From this population, we randomly selected 100 individuals without replacement to create a sample. Each prevalence level was simulated 1,000 times, and SAMPLE was applied with its default parameters. This approach introduces an extra layer of sampling variability, allowing us to assess how drawing from a larger population impacts estimation accuracy. The script below demonstrates how to perform a single replicate:
+
 ```R
 library(SAMPLE)
 args = commandArgs(trailingOnly=TRUE)
