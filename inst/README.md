@@ -258,7 +258,7 @@ combined_data$Prevalence <- factor(combined_data$Prevalence, levels = sort(uniqu
 
 
 # Plot the mean values with error bars
-pdf("Combined.pdf",15,9)
+pdf("Figure_S2.pdf",15,9)
 ggplot(combined_data, aes(x = Prevalence, y = results)) +
   geom_boxplot(outlier.shape = NA) +  # Remove outliers
   scale_x_discrete(limits = sort(unique(combined_data$Prevalence)),breaks = seq(5, 95, by = 5)) +
@@ -267,6 +267,4 @@ ggplot(combined_data, aes(x = Prevalence, y = results)) +
 dev.off()
 ```
 
-The results confirm that SAMPLE consistently detects stable prevalence estimates more quickly when the true prevalence is either very low or very high. In contrast, when prevalence is around 50%, the variance in observed prevalence estimates is higher, leading to greater fluctuations and delaying stability detection. This outcome aligns with statistical expectations based on the binomial distribution and demonstrates that the observed pattern is an inherent property of prevalence estimation rather than an artifact of the method itself.
-
-The accompanying plot summarizes the distribution of stability detection points across different prevalence levels, highlighting this trend.
+The results confirm that SAMPLE consistently detects stable prevalence estimates more quickly when the true prevalence is either very low or very high (Figure S2). 
