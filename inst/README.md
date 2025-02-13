@@ -187,7 +187,7 @@ simulated_data$TruePrevalence <- as.factor(simulated_data$TruePrevalence)
 # Plot the results using a boxplot
 ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
   geom_boxplot(color = "black", fill="white",
-               staplewidth = 0.15) +
+               staplewidth = 0.15, ,outliers = FALSE) +
   labs(x = "True Prevalence", y = "Observed Prevalence") +
   theme_bw()
 ```
@@ -259,11 +259,10 @@ combined_data$Prevalence <- factor(combined_data$Prevalence, levels = sort(uniqu
 
 # Plot the mean values with error bars
 pdf("Figure_S2.pdf",15,9)
-ggplot(combined_data, aes(x = Prevalence, y = results)) +
-  geom_boxplot(outlier.shape = NA) +  # Remove outliers
-  scale_x_discrete(limits = sort(unique(combined_data$Prevalence)),breaks = seq(5, 95, by = 5)) +
-  labs(x = "Prevalence (%)", y = "Detected Stability") +
-  theme_minimal()  
+ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
+  geom_boxplot(outlier.shape = NA) +
+  labs(x = "True Prevalence", y = "Observed Prevalence") +
+  theme_bw()
 dev.off()
 ```
 
