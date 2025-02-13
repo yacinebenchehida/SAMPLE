@@ -266,4 +266,11 @@ ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
 dev.off()
 ```
 
-The results confirm that SAMPLE consistently detects stable prevalence estimates more quickly when the true prevalence is either very low or very high (Figure S2). 
+The results confirm that SAMPLE consistently detects stable prevalence estimates more quickly when the true prevalence is either very low or very high (Figure S2).
+
+
+# The Influence of sampling on prevalence estimation in SAMPLE
+## No sampling and errors in prevalence estimates
+## Sampling and errors in prevalence estimates
+
+
