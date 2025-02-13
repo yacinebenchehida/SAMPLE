@@ -151,3 +151,43 @@ The command used to summarise the results in Supplementary Table S2 (part C)
 ```{bash}
 cat *replicate_* |grep -v "Prevalence"|awk '{print $3"\t"$4}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g'
 ```
+
+#  V) Variance in prevalence estimation using binomial sampling
+This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
+```R
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set parameters
+sample_size <- 50
+prevalence_levels <- c(0.01, 0.1, 0.5, 0.9, 0.99)
+num_replicates <- 1000
+
+# Function to simulate prevalence estimation using binomial sampling
+simulate_prevalence <- function(true_prevalence) {
+  observed_prevalences <- numeric(num_replicates)
+  
+  for (i in 1:num_replicates) {
+    # Instead of constructing a population, sample directly using rbinom
+    sample <- rbinom(sample_size, 1, true_prevalence)
+    observed_prevalences[i] <- mean(sample)
+  }
+  
+  return(data.frame(TruePrevalence = true_prevalence,
+                    ObservedPrevalence = observed_prevalences))
+}
+
+# Run simulations for all prevalence levels
+simulated_data <- do.call(rbind, lapply(prevalence_levels, simulate_prevalence))
+
+# Convert TruePrevalence to a factor for plotting
+simulated_data$TruePrevalence <- as.factor(simulated_data$TruePrevalence)
+
+# Plot the results using a boxplot
+ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
+  geom_boxplot(color = "black", fill="white",
+               staplewidth = 0.15) +
+  labs(x = "True Prevalence", y = "Observed Prevalence") +
+  theme_bw()
+```
