@@ -152,7 +152,8 @@ The command used to summarise the results in Supplementary Table S2 (part C)
 cat *replicate_* |grep -v "Prevalence"|awk '{print $3"\t"$4}'|perl -pe 's/(\d+)(\.)(\d)\d+/$1$2$3/g'
 ```
 
-#  V) Variance in prevalence estimation using binomial sampling (Figure S5)
+#  V) SAMPLE relationship Between Prevalence and Sampling Stability
+## Variance in prevalence estimation using binomial sampling (Figure S5)
 This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show (check Figure S5) that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
 ```R
 # Load necessary libraries
@@ -189,4 +190,46 @@ ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
                staplewidth = 0.15) +
   labs(x = "True Prevalence", y = "Observed Prevalence") +
   theme_bw()
+```
+
+##  Implication for SAMPLE (Figure S2)
+This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show (check Figure S5) that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
+```
+library(SAMPLE)
+args = commandArgs(trailingOnly=TRUE)
+simulations_number <- args[1]
+
+sample_size = 50 
+Prevalence = c(seq(1,99,1))
+
+# Simulate sampling for low and high prevalence
+simulate_data <- function(prevalence, sample_size) {
+  Present <- 0
+  a = 1
+  
+  # For each sample, update the prevalence estimate and CI
+  for (i in 1:sample_size) {
+    # Simulate the presence/absence of the species (1 = present, 0 = absent)
+    new_sample <- rbinom(1, 1, prevalence/100)
+    Present <- Present + new_sample
+    estimated_prevalence <- Present /i 
+    Absent <- sample_size - Present
+    simdata = as.data.frame(cbind("Host1",c(rep(1,Present),rep(0,Absent))))
+    simdata <- simdata[sample(1:nrow(simdata),replace=FALSE), ]
+
+  }
+  # Run SAMPLE on the simulated data
+  perm = RunPerm(input = simdata,replicates = 50)
+  stable = stability(data = perm, stability_thresh = 2, success_points = 10, diff = 1)
+  print(stable$Prevalence)
+  print(stable$thres)
+  
+  return(stable$thres)
+  
+}
+
+# Store the results in a file
+results <- mapply(simulate_data, MoreArgs = list(sample_size = sample_size), Prevalence)
+results <- as.data.frame(cbind(Prevalence,results))
+write.table(x = results,file = paste("simulations_",simulations_number,".txt",sep=""),sep="\t",row.names = FALSE, col.names = TRUE,quote = FALSE)
 ```
