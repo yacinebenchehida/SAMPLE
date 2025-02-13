@@ -270,7 +270,7 @@ The results confirm that SAMPLE consistently detects stable prevalence estimates
 
 
 # The Influence of sampling on prevalence estimation in SAMPLE
-## No sampling and errors in prevalence estimates
-## Sampling and errors in prevalence estimates
+## No sampling and errors in prevalence estimates (Figure S3)
+## Sampling and errors in prevalence estimates (Figure S4)
 
 
