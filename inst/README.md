@@ -194,7 +194,8 @@ ggplot(simulated_data, aes(x = TruePrevalence, y = ObservedPrevalence)) +
 
 ##  Implication for SAMPLE (Figure S2)
 This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show (check Figure S5) that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
-```
+
+```R
 library(SAMPLE)
 args = commandArgs(trailingOnly=TRUE)
 simulations_number <- args[1]
@@ -218,7 +219,7 @@ simulate_data <- function(prevalence, sample_size) {
     simdata <- simdata[sample(1:nrow(simdata),replace=FALSE), ]
 
   }
-  # Run SAMPLE on the simulated data
+  # Run SAMPLE on the simulated data 
   perm = RunPerm(input = simdata,replicates = 50)
   stable = stability(data = perm, stability_thresh = 2, success_points = 10, diff = 1)
   print(stable$Prevalence)
@@ -228,7 +229,7 @@ simulate_data <- function(prevalence, sample_size) {
   
 }
 
-# Store the results in a file
+# Store the results of the replicate in a file
 results <- mapply(simulate_data, MoreArgs = list(sample_size = sample_size), Prevalence)
 results <- as.data.frame(cbind(Prevalence,results))
 write.table(x = results,file = paste("simulations_",simulations_number,".txt",sep=""),sep="\t",row.names = FALSE, col.names = TRUE,quote = FALSE)
