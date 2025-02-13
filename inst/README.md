@@ -271,6 +271,7 @@ The results confirm that SAMPLE consistently detects stable prevalence estimates
 
 # The Influence of sampling on prevalence estimation in SAMPLE
 ## No sampling and errors in prevalence estimates (Figure S3)
+This simulation evaluates how well SAMPLE estimates prevalence when individuals are drawn directly from a binomial distribution. It assesses SAMPLE’s accuracy by comparing the true prevalence used in the simulations to the prevalence estimated by SAMPLE. We tested known prevalence values ranging from 1% to 99%, using samples of 100 individuals. Each prevalence level was simulated 1,000 times, and SAMPLE was applied with its default parameters. The script below demonstrates how to perform a single replicate:
 
 ```R
 library(SAMPLE)
