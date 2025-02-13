@@ -153,7 +153,7 @@ cat *replicate_* |grep -v "Prevalence"|awk '{print $3"\t"$4}'|perl -pe 's/(\d+)(
 ```
 
 #  V) Variance in prevalence estimation using binomial sampling
-This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
+This simulation examines how the variance in observed prevalence changes with different true prevalence levels. We performed 1,000 simulations for each prevalence level, drawing 50 samples per simulation from a binomial distribution. The results show (check Figure S5) that when true prevalence is very low or very high, the variance in observed prevalence is small, whereas for intermediate values, the variance is larger.
 ```R
 # Load necessary libraries
 library(ggplot2)
